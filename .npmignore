@@ -1,0 +1,10 @@
+.idea
+.git
+.gitignore
+.npmignore
+tsconfig.json
+package-lock.json
+dist
+node_modules
+src
+tools

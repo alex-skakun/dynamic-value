@@ -1,0 +1,23 @@
+{
+  "name": "dynamic-value",
+  "version": "1.0.0",
+  "scripts": {
+    "prebuild": "rm -rf ./dist",
+    "build": "node_modules/.bin/tsc",
+    "postbuild": "node tools/dist-files.js",
+    "prerelease": "npm run build",
+    "release": "npm publish ./dist --tag @:$(node tools/package-info.js version) --access public"
+  },
+  "dependencies": {
+    "bezier-easing": "^2.1.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.2.4"
+  },
+  "author": {
+    "email": "alex.skakun@me.com",
+    "name": "Aleksey Skakun",
+    "url": "https://github.com/alex-skakun"
+  },
+  "license": "MIT"
+}
