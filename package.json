@@ -19,5 +19,8 @@
     "name": "Aleksey Skakun",
     "url": "https://github.com/alex-skakun"
   },
+  "repository": {
+    "url": "https://github.com/alex-skakun/dynamic-value"
+  },
   "license": "MIT"
 }
