@@ -1,6 +1,6 @@
 {
   "name": "dynamic-value",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "scripts": {
     "prebuild": "rm -rf ./dist",
     "build": "node_modules/.bin/tsc",

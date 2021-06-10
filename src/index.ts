@@ -19,12 +19,11 @@ export class DynamicValue extends Number {
         SCHEDULER.emit();
     }
 
-    readonly #startValue: number;
     readonly #time: number;
     readonly #bezierString: string;
+    #startValue: number;
     #currentValue: number;
     #targetValue: number = null;
-    #loopStarted = false;
     #stopLoop: () => void = null;
 
     constructor (value: number = 0, time: number, bezierString: string) {
@@ -35,35 +34,38 @@ export class DynamicValue extends Number {
         this.#bezierString = bezierString;
     }
 
-    transformTo (newValue: number, sameCycle = false): this {
-        if (!sameCycle) {
-            this.reset(this.#currentValue);
-        }
+    transformTo (newValue: number): this {
+        this.reset(this.#currentValue);
         this.#targetValue = newValue;
-        if (!this.#loopStarted) {
-            this.#loopStarted = true;
-            this.#stopLoop = easingLoop(this.#time, this.#bezierString, k => {
-                this.#currentValue = this.#startValue + (this.#targetValue - this.#startValue) * k;
-                if (k === 1) {
-                    this.reset(newValue);
-                }
-            });
-        }
+        this.#stopLoop = easingLoop(this.#time, this.#bezierString, k => {
+            this.#currentValue = this.#startValue + (this.#targetValue - this.#startValue) * k;
+            if (k === 1) {
+                this.reset(newValue);
+            }
+        });
         return this;
     }
 
-    reset (startValue= this.#startValue): void {
+    reset (startValue = this.#startValue): void {
         if (typeof this.#stopLoop === 'function') {
             this.#stopLoop();
             this.#stopLoop = null;
         }
         this.#currentValue = startValue;
+        this.#startValue = startValue;
         this.#targetValue = null;
-        this.#loopStarted = false;
     }
 
     current (): number {
         return this.#currentValue;
+    }
+
+    [Symbol.toPrimitive] (): number {
+        return this.current();
+    }
+
+    valueOf (): number {
+        return this.current();
     }
 
 }
@@ -81,6 +83,7 @@ export function timeLoop (durationMs: number, callback: (progress: number) => vo
             if (now <= end) {
                 callback((now - start) / durationMs);
             } else {
+                callback(1);
                 unsubscribe();
             }
         });
