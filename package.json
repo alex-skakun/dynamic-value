@@ -6,7 +6,7 @@
     "build": "node_modules/.bin/tsc",
     "postbuild": "node tools/dist-files.js",
     "prerelease": "npm run build",
-    "release": "npm publish ./dist --tag @:$(node tools/package-info.js version) --access public"
+    "release": "npm publish ./dist --tag latest --access public"
   },
   "dependencies": {
     "bezier-easing": "^2.1.0"
