@@ -1,18 +1,4 @@
-# Dynamic value
-
-A small lib that provides custom class `DynamicValue`, subclass of `Number`. 
-
-## Methods
-
-- `static` `DynamicValue.tick()` - triggers calculations for all instances of `DynamicValue`
-- `transitionTo(number)` - enables transition change from current value to passed.
-- `reset(number?)` - resets value to initial or specified value. Doesn't start transition.
-- `current()` - returns current value. Returns different values during transition.
-
-## Usage
-
-```javascript
-import { DynamicValue } from 'dynamic-value';
+import { DynamicValue } from '../dist';
 import { animationFrameCycle } from './renderUtils';
 
 
@@ -27,10 +13,10 @@ let dynamicValue = new DynamicValue(startValue, transitionDurationMs, cubicBezie
 
 squareEl.addEventListener('click', () => {
   if (scaling) {
-    dynamicValue.transitionTo(startValue);
+    dynamicValue.transformTo(startValue);
     scaling = false;
   } else {
-    dynamicValue.transitionTo(endValue);
+    dynamicValue.transformTo(endValue);
     scaling = true;
   }
 });
@@ -46,7 +32,3 @@ function render () {
   squareEl.style.height = `${dynamicValue}px`;
   squareEl.style.width = `${dynamicValue}px`;
 }
-```
-
-### Preview
-![](demo.gif)
