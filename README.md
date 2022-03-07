@@ -50,3 +50,7 @@ function render () {
 
 ### Preview
 ![](demo.gif)
+
+## License
+
+MIT
